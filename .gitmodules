@@ -1,0 +1,21 @@
+[submodule "template-rails"]
+	path = template-rails
+	url = git@github.com:ymmmtym/template-rails.git
+[submodule "template-mkdocs"]
+	path = template-mkdocs
+	url = git@github.com:ymmmtym/template-mkdocs.git
+[submodule "template-deno"]
+	path = template-deno
+	url = git@github.com:ymmmtym/template-deno.git
+[submodule "template-gin"]
+	path = template-gin
+	url = git@github.com:ymmmtym/template-gin.git
+[submodule "template-django-polls"]
+	path = template-django-polls
+	url = git@github.com:ymmmtym/template-django-polls.git
+[submodule "template-vue"]
+	path = template-vue
+	url = git@github.com:ymmmtym/template-vue.git
+[submodule "template-node-express"]
+	path = template-node-express
+	url = git@github.com:ymmmtym/template-node-express.git
