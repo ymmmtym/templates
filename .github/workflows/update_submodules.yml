@@ -34,7 +34,7 @@ jobs:
       id: checkout
       run: |
         git config --local pull.rebase false
-        for dir in $(find ./template-* -type d -d 0); do
+        for dir in $(ls -d1 * | grep "^template-"); do
           cd ${dir}
           git checkout main || git checkout master
           cd ..
