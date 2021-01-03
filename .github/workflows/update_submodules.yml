@@ -27,8 +27,7 @@ jobs:
 
     - name: Update submodules
       id: update
-      run: |
-        git submodule update --init --recursive
+      run: git submodule update --init --recursive
 
     - name: Checkout main branch
       id: checkout
@@ -42,15 +41,14 @@ jobs:
 
     - name: Run git status
       id: status
-      run: |
-        echo "::set-output name=status::$(git status -s)"
+      run: echo "::set-output name=status::$(git status -s)"
 
     - name: Add and commit files
       run: |
         git add .
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "Add changes at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
+        git commit -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
       if: ${{ steps.status.outputs.status }}
 
     - name: Push changes
