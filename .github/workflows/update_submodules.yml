@@ -20,6 +20,7 @@ jobs:
     - name: Update submodules
       id: update
       run: |
+        git config --local pull.rebase false
         for dir in $(find ./template-* -type d)
           do cd ${dir} && git pull && cd ..
         done
@@ -35,7 +36,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git commit -m "Add changes at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
-      if: ${{ steps.status.outputs.status }} 
+      if: ${{ steps.status.outputs.status }}
 
     - name: Push changes
       uses: ad-m/github-push-action@master
