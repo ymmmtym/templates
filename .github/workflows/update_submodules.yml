@@ -12,37 +12,17 @@ jobs:
     runs-on: ubuntu-18.04
     env:
       TZ: "Asia/Tokyo"
-      SSH_DEPLOY_KEY: ${{ secrets.SSH_DEPLOY_KEY }}
     if: contains(github.event.head_commit.message, '[ci skip]') == false
-
     steps:
-    - uses: actions/checkout@master
-
-    - name: Set ssh deploy key
-      id: ssh
-      run: |
-          mkdir -p /home/runner/.ssh/
-          echo -e "${SSH_DEPLOY_KEY}" > /home/runner/.ssh/id_rsa
-          chmod 600 /home/runner/.ssh/id_rsa
-
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
     - name: Update submodules
       id: update
-      run: git submodule update --init --recursive
-
-    - name: Checkout main branch
-      id: checkout
-      run: |
-        git config --local pull.rebase false
-        for dir in $(ls -d1 * | grep "^template-"); do
-          cd ${dir}
-          git checkout main || git checkout master
-          cd ..
-        done
-
+      run: git submodule update --remote --recursive 
     - name: Run git status
       id: status
       run: echo "::set-output name=status::$(git status -s)"
-
     - name: Add and commit files
       run: |
         git add .
@@ -50,7 +30,6 @@ jobs:
         git config --local user.name "GitHub Action"
         git commit -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
       if: ${{ steps.status.outputs.status }}
-
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
