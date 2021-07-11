@@ -2,6 +2,7 @@ name: Update submodules
 on:
   schedule:
     - cron:  '0 * * * *'
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -38,4 +39,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: main
-      if: ${{ github.​event_name == 'push' && steps.status.outputs.status }}
+      if: ${{ steps.status.outputs.status && github.event_name == 'push' }}
