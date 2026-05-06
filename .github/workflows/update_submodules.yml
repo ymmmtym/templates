@@ -13,12 +13,12 @@ on:
 jobs:
   update_submodules:
     name: Update submodules
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     env:
       TZ: "Asia/Tokyo"
     if: contains(github.event.head_commit.message, '[ci skip]') == false
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
     - name: Update submodules
@@ -26,7 +26,7 @@ jobs:
       run: git submodule update --remote --recursive 
     - name: Run git status
       id: status
-      run: echo "::set-output name=status::$(git status -s)"
+      run: echo "status=$(git status -s)" >> $GITHUB_OUTPUT
     - name: Add and commit files
       run: |
         git add .
