@@ -26,7 +26,11 @@ jobs:
       run: git submodule update --remote --recursive 
     - name: Run git status
       id: status
-      run: echo "status=$(git status -s)" >> $GITHUB_OUTPUT
+      run: |
+        status=$(git status -s)
+        echo "status<<EOF" >> $GITHUB_OUTPUT
+        echo "$status" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
     - name: Add and commit files
       run: |
         git add .
